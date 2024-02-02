@@ -6,6 +6,8 @@ import luiz.aquino.sistemabancario.repositories.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AccountService {
 
@@ -17,6 +19,10 @@ public class AccountService {
         newAccount.setAccountNumber(accountNumber());
         this.accountRepository.save(newAccount);
         return newAccount;
+    }
+
+    public List<Account> getAll() {
+        return this.accountRepository.findAll();
     }
 
     private Long accountNumber() {
