@@ -30,8 +30,15 @@ public class AccountController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<Account>> findById(@PathVariable String id) {
-        Optional<Account> newAccount = this.accountService.findById(id);
+    public ResponseEntity <Account> findById(@PathVariable String id) {
+        Account newAccount = this.accountService.findById(id);
         return ResponseEntity.ok().body(newAccount);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Account> delete(@PathVariable String id) {
+        this.accountService.deleteAccount(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }

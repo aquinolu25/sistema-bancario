@@ -2,12 +2,13 @@ package luiz.aquino.sistemabancario.service;
 
 import luiz.aquino.sistemabancario.entity.account.Account;
 import luiz.aquino.sistemabancario.entity.account.AccountDTO;
+import luiz.aquino.sistemabancario.entity.account.enums.StatusAccount;
 import luiz.aquino.sistemabancario.repositories.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import luiz.aquino.sistemabancario.entity.account.exceptions.AccountNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class AccountService {
@@ -26,8 +27,16 @@ public class AccountService {
         return this.accountRepository.findAll();
     }
 
-    public Optional<Account> findById(String id) {
-        return this.accountRepository.findById(id);
+    public Account findById(String id) {
+        Account account = this.accountRepository.findById(id)
+                .orElseThrow(AccountNotFoundException::new);
+        return account;
+    }
+
+    public void deleteAccount(String id) {
+        Account account = this.accountRepository.findById(id)
+                .orElseThrow(AccountNotFoundException::new);
+        this.accountRepository.delete(account);
     }
 
     private Long accountNumber() {
