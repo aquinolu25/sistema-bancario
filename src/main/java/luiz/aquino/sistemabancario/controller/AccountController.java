@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/account")
@@ -26,5 +27,11 @@ public class AccountController {
     public ResponseEntity<List<Account>> getAll() {
         List<Account> accounts = this.accountService.getAll();
         return ResponseEntity.ok().body(accounts);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Optional<Account>> findById(@PathVariable String id) {
+        Optional<Account> newAccount = this.accountService.findById(id);
+        return ResponseEntity.ok().body(newAccount);
     }
 }

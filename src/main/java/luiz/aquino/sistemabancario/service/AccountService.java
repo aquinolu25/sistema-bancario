@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AccountService {
@@ -23,6 +24,10 @@ public class AccountService {
 
     public List<Account> getAll() {
         return this.accountRepository.findAll();
+    }
+
+    public Optional<Account> findById(String id) {
+        return this.accountRepository.findById(id);
     }
 
     private Long accountNumber() {
